@@ -1,0 +1,12 @@
+Title: Data Preparation for shots-data.csv
+
+Description: Data preparation to create a csv data file shots-data.csv that will contain the required variables to be used in the visualization phase
+Inputs:
+   • andre-iguodala.csv
+   • draymond-green.csv
+   • kevin-durant.csv
+   • klay-thompson.csv
+   • stephen-curry.csv
+ Outputs:
+   • shots-data.csv
+   

@@ -1,0 +1,17 @@
+"0","shots_data_occ <- shots_data %>%"
+"0","  group_by(player_name, minute) %>%"
+"0","  summarize(shots_made=n())"
+"0","ggplot(data=shots_data_occ, aes(x=minute, y=shots_made))+"
+"0","  ggtitle(label='Total number of shots (by minute of occurence)')+"
+"0","  scale_x_continuous(limits=c(0,48))+"
+"0","  labs(y='total number of shots')+"
+"0","  facet_wrap(~player_name)+"
+"0","  geom_rect(aes(xmin=0, xmax=12, ymin=-Inf, ymax=Inf), fill='grey90')+"
+"0","  geom_rect(aes(xmin=24, xmax=36, ymin=-Inf, ymax=Inf), fill='grey90')+"
+"0","  geom_point(color=""blue"")+"
+"0","  geom_path(color=""blue"", alpha=0.3)+"
+"0","  scale_x_continuous(breaks=c(0,12,24,36,48))+"
+"0","  theme_minimal()"
+"2","Scale for 'x' is already present. Adding another scale for 'x',
+which will replace the existing scale.
+"

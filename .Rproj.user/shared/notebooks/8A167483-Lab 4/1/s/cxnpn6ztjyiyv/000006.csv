@@ -1,0 +1,4 @@
+"0","# nominal, continuous, continuous, continuous, continuous, continuous, continuous, continuous, integer"
+"0","#Read abolone file"
+"0","url <- ""http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data"""
+"0","abalone <- read.table(url, sep = "","")"

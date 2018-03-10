@@ -1,0 +1,338 @@
+---
+title: "Lab 4"
+author: "Nancy Rose"
+date: "2/15/2018"
+output: html_document
+---
+
+```{r, results=FALSE}
+download.file("http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data", destfile = "Abalone Data Set")
+
+#What's the character delimiter?
+# comma
+
+#Is there a row for column names?
+# no
+
+#Are there any missing values? If so, how are they codified?
+# no
+
+#What is the data type of each column?
+read.csv("Abalone Data Set")
+# nominal, continuous, continuous, continuous, continuous, continuous, continuous, continuous, integer
+
+#Read abolone file
+url <- "http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data"
+abalone <- read.table(url, sep = ",")
+```
+
+```{r}
+#download copy to your working directory
+# origin <- 'http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data'
+# destination <- 'abalone.data'
+# download.file(origin, destination)
+
+#find out what type of file abolone is using terminal
+# >file abalone.data
+# ASCII text
+
+#use command wc in terminal
+# >wc abalone.data
+# newline count: 4177, word count: 4177, byte count: 191873
+
+#use command wc in terminal to get only number of lines
+# >wc -l abalone.data
+
+#use command head in terminal
+# >head abalone.data
+
+#use command head in terminal to get only the first 5 lines
+# >head -n 5 abalone.data
+
+#use command tail in terminal
+# >tail abalone.data
+
+#use command tail in terminal to get only the last 3 lines
+# >tail -n 3 abalone.data
+
+#use less command to look at contents of abalone.data
+# >less abalone.data
+```
+
+```{r}
+# reading data from your working directory
+abalone <- read.table("abalone.data", sep = ",")
+
+# take a peek of first rows
+head(abalone)
+
+# take a peek of last rows
+tail(abalone)
+
+# check data frame's structure
+str(abalone, vec.len = 1)
+```
+
+```{r}
+# vector of column names
+column_names <- c('sex','length','diameter','height','whole_weight','shucked_weight','viscera_weight','shell_weight','rings')
+
+# vector of data types (for each column)
+column_types <- c('character','real','real','real','real','real','real','real','integer')
+
+# read the abalone data with read.table
+abalone <- read.table('abalone.data',col.names = column_names,colClasses = column_types,sep = ",")
+
+# check its structure again
+str(abalone, vec.len = 1)
+```
+
+```{r}
+#read the abalone data with read.csv
+abalone <- read.csv('abalone.data',col.names = column_names,colClasses = column_types)
+
+#look at data description
+summary(abalone, vec.len = 1)
+```
+
+```{r}
+#install readr
+# >install.packages ("readr")
+library(readr)
+
+#specify column types
+column_types <- list(
+sex = col_factor(c("F","M","I")),
+length = col_double(),
+diameter = col_double(),
+height = col_double(),
+whole_weight = col_double(),
+shucked_weight = col_double(),
+viscera_weight = col_double(),
+shell_weight = col_double(),
+rings = col_integer()
+)
+
+#import abalone data using read_csv
+read_csv("abalone.data", col_names = column_names, col_types = column_types)
+```
+
+```{r, results=FALSE}
+#Are there column names?
+# no
+
+#What is the field separator?
+# comma
+
+#Are there any missing values?
+# yes
+
+#What is the character for missing values (if any)?
+# question mark
+
+#download bridges data
+download.file("http://archive.ics.uci.edu/ml/machine-learning-databases/bridges/bridges.data.version1", destfile = "bridges.data")
+read.csv("bridges.data")
+
+#What is the data type of each variable (i.e. column)?
+# factor, factor, factor, integer, factor, factor, factor, factor, factor, factor, factor, factor, factor
+```
+```{r}
+#create vector of column names
+bridge_col_names <- c('identif', 'river', 'location','erected','purpose','length','lanes','clear-g','T-or-D','material','span','rel-l','type')
+
+#create vector of column types
+bridge_col_types <- c('factor', 'factor', 'factor', 'integer', 'factor', 'factor', 'factor', 'factor', 'factor', 'factor', 'factor', 'factor', 'factor')
+
+#use function read.table to import data
+bridges1 <- read.table("bridges.data", sep = ",")
+
+#use function read.csv to import data
+bridges2 <- read.csv("bridges.data")
+
+#use argument colClasses to import only the first 5 columns
+bridges3 <- read.csv("bridges.data", col.names = bridge_col_names, colClasses = c('identif'='factor', 'river'='factor', 'location'='factor', 'erected'='integer', 'purpose'='factor'))
+```
+
+```{r}
+#basic inspection of bridges1 data frame
+str(bridges1)
+summary(bridges1)
+head(bridges1)
+tail(bridges1)
+dim(bridges1)
+names(bridges1)
+colnames(bridges1)
+nrow(bridges1)
+ncol(bridges1)
+```
+
+```{r}
+#create vector for each column
+Player <- c('Thompson','Curry', 'Green', 'Durant','Pachulia')
+Position <- c('SG','PG','PF','SF','C')
+Salary <- c('16663575','12112359','15330435','26540100','2898000')
+Points <- c('1742','1999','776','1555','426')
+PPG <- c('22.3','25.3','10.2','25.1','6.1')
+Rookies <- c(FALSE,FALSE,FALSE,FALSE,FALSE)
+
+#use the vectors to create a data frame
+GSW_frame <- data.frame(Player, Position, Salary, Points, PPG, Rookies)
+
+#check data frame is a data frame and a list
+is.data.frame(GSW_frame)
+is.list(GSW_frame)
+
+#use list to create a data frame
+GSW_list <- list('Player' = Player, 'Position' = Position, 'Salary' = Salary, 'Points' = Points, 'PPG' = PPG, 'Rookies' = Rookies)
+GSW_frame2 <- as.data.frame(GSW_list)
+
+#create data frame with certain structure
+GSW_frame3 <- data.frame('Player' = as.character(Player), 'Position' = as.factor(Position), 'Salary' = as.numeric(Salary), 'Points' = as.integer(Points), 'PPG' = as.numeric(PPG), Rookies)
+
+#use cbind to create a data frame
+GSW_cbind <- cbind(Player, Position, Salary, Points, PPG, Rookies)
+GSW_frame4 <- cbind.data.frame(GSW_cbind)
+```
+
+```{r}
+# download csv file into your working directory
+csv <- "https://github.com/ucb-stat133/stat133-fall-2017/raw/master/data/nba2017-players.csv"
+download.file(url = csv, destfile = 'nba2017-players.csv')
+
+#import the data using read.csv
+dat <- read.csv('nba2017-players.csv', stringsAsFactors = FALSE)
+
+# dimensions (# of rows, # of columns)
+dim(dat)
+
+# display first few rows
+head(dat)
+
+# check the structure
+str(dat, vec.len = 1)
+```
+
+```{r}
+#Display the last 5 rows of the data.
+tail(dat, n=5)
+
+#Display those rows associated to players having height less than 70 inches tall.
+dat[dat$height<70,]
+
+#Of those players that are centers (position C), display their names and salaries.
+dat[dat$position=='C', ][c('player', 'salary')]
+
+#Create a data frame durant with Kevin Durant's information (i.e. row).
+durant <- dat[dat$player=="Kevin Durant",]
+
+#Create a data frame ucla with the data of players from college UCLA ("University of California, Los Angeles").
+ucla <- dat[dat$college=="University of California, Los Angeles",]
+
+#Create a data frame rookies with those players with 0 years of experience.
+rookies <- dat[dat$experience=="0",]
+
+#Create a data frame rookie_centers with the data of Center rookie players.
+rookie_centers <- dat[dat$experience=="0" & dat$position=="C", ]
+
+#Create a data frame top_players for players with more than 50 games and more than 100 minutes played.
+top_players <- dat[dat$games>50 & dat$minutes>100, ]
+
+#What's the largest height value?
+max(dat$height)
+
+#What's the minimum height value?
+min(dat$height)
+
+#What's the overall average height?
+mean(dat$height)
+
+#Who is the tallest player?
+dat[max(dat$height), ][["player"]]
+
+#Who is the shortest player?
+dat[min(dat$height), ][["player"]]
+
+# Which are the unique teams?
+
+#How many different teams?
+nlevels(factor(dat$team))
+
+#Who is the oldest player?
+dat[max(dat$age), ][["player"]]
+
+#What is the median salary of all players?
+median(dat$salary[which(dat$experience>10)])
+
+#What is the median salary of the players with 10 years of experience or more?
+median(dat$salary[which(dat$position=="SG" | dat$position=="PG")])
+
+#What is the median salary of Shooting Guards (SG) and Point Guards (PG)?
+median(dat$salary[which(dat$position=="PF" & dat$age>29 & dat$height<=74)])
+
+#What is the median salary of Power Forwards (PF), 29 years or older, and 74 inches tall or less?
+nrow(dat[dat$points<=4, ])
+
+#How many players scored 4 points or less?
+dat[dat$points<=4, ][["player"]]
+
+#Who are those players who scored 4 points or less?
+dat[dat$points==0, ][["player"]]
+
+#Who is the player with 0 points?
+nrow(dat[dat$college=="University of California, Berkeley", ])
+
+#How many players are from "University of California, Berkeley"?
+nrow(dat[dat$college=="University of Notre Dame", ])
+
+#Are there any players from "University of Notre Dame"? If so how many and who are they?
+dat[dat$college=="University of Notre Dame", ][["player"]]
+
+#Are there any players with weight greater than 260 pounds? If so how many and who are they?
+nrow(dat[dat$weight>260, ])
+dat[dat$weight>260, ][["player"]]
+
+#How many players did not attend a college in the US?
+nrow(dat[dat$college=="", ])
+
+#Who is the player with the maximum rate of points per minute?
+dat$player[which.max(dat$points/dat$salary)]
+
+#Who is the player with the maximum rate of three-points per minute?
+dat$player[which.max(dat$points3/dat$minutes)]
+
+#Who is the player with the maximum rate of two-points per minute?
+dat$player[which.max(dat$points2/dat$minutes)]
+
+#Who is the player with the maximum rate of one-points (free-throws) per minute?
+dat$player[which.max(dat$points1/dat$minutes)]
+
+#Create a data frame gsw with the name, height, weight of Golden State Warriors (GSW)
+gsw <- dat[which(dat$team=="GSW"), ][c("player","height","weight")]
+
+#Display the data in gsw sorted by height in increasing order
+gsw[order(gsw$height), ]
+
+#Display the data in gsw by weight in decreasing order
+gsw[order(-gsw$weight), ]
+
+#Display the player name, team, and salary, of the top 5 highest-paid players
+dat[order(-dat$salary)[1:5], ][c("player", "team","salary")]
+
+#Display the player name, team, and points3, of the top 10 three-point players
+dat[order(-dat$points3)[1:10], ][c("player", "team","points3")]
+```
+
+```{r}
+#Create a data frame with the average height, average weight, and average age, grouped by position
+aggregate(dat[ , c("height", "weight", "age")], by = list(dat$position), FUN=median)
+
+#Create a data frame with the average height, average weight, and average age, grouped by team
+aggregate(dat[ ,c("height", "weight", "age")], by = list(dat$team), FUN=median)
+
+#Create a data frame with the average height, average weight, and average age, grouped by team and position
+aggregate(dat[ ,c("height", "weight", "age")], by = dat[c("team","position")], FUN=median)
+
+#Difficult: Create a data frame with the minimum salary, median salary, mean salary, and maximum salary, grouped by team and position
+aggregate(dat[ ,c("salary")], by = dat[c("team","position")], FUN=function(dat) c(min = min(dat), med = median(dat), avg = mean(dat), max = max(dat)))
+```

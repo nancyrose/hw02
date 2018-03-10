@@ -1,0 +1,258 @@
+---
+title: "Lab 5"
+author: "Nancy Rose"
+date: "2/24/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE, fig.path = 'Stats 133/lab05/images/')
+```
+
+```{r}
+#Nancys-MacBook-Pro-2:~ nancyrose$ cd "Stats 133"
+#Nancys-MacBook-Pro-2:Stats 133 nancyrose$ mkdir "lab05"
+#Nancys-MacBook-Pro-2:Stats 133 nancyrose$ cd "lab05"
+#Nancys-MacBook-Pro-2:lab05 nancyrose$ mkdir data
+#Nancys-MacBook-Pro-2:lab05 nancyrose$ mkdir report
+#Nancys-MacBook-Pro-2:lab05 nancyrose$ mkdir images
+#Nancys-MacBook-Pro-2:lab05 nancyrose$ cd ..
+#Nancys-MacBook-Pro-2:Stats 133 nancyrose$ ls lab05
+
+#Nancys-MacBook-Pro-2:~ nancyrose$ mv "Lab 5.Rmd" "Stats 133/lab05/report"
+
+#Nancys-MacBook-Pro-2:Stats 133 nancyrose$ cd lab05
+#Nancys-MacBook-Pro-2:lab05 nancyrose$ cd data
+#Nancys-MacBook-Pro-2:data nancyrose$ curl -O https://raw.githubusercontent.com/ucb-stat133/stat133-spring-2018/master/data/nba2017-players.csv
+#Nancys-MacBook-Pro-2:data nancyrose$ cd ..
+#Nancys-MacBook-Pro-2:lab05 nancyrose$ ls data
+
+#Nancys-MacBook-Pro-2:lab05 nancyrose$ cd data
+#Nancys-MacBook-Pro-2:data nancyrose$ wc nba2017-players.csv
+
+#Nancys-MacBook-Pro-2:data nancyrose$ head nba2017-players.csv
+#Nancys-MacBook-Pro-2:data nancyrose$ tail nba2017-players.csv
+```
+
+```{r}
+#install.packages(c("dplyr", "ggplot2"))
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+# download csv file into your working directory
+csv <- "https://github.com/ucb-stat133/stat133-fall-2017/raw/master/data/nba2017-players.csv"
+download.file(url = csv, destfile = 'nba2017-players.csv')
+
+#import the data using read.csv
+dat <- read.csv('nba2017-players.csv', stringsAsFactors = FALSE)
+```
+
+```{r}
+#use slice to select the first 5 rows
+slice (dat, 1:5)
+
+#use slice to select rows 10, 15, 20, ..., 50
+slice(dat,seq(10, 50, by=5))
+
+#use slice to select the last 5 rows
+slice (dat, 437:441)
+
+#use filter to select players with height less than 70 inches tall.
+filter(dat, height<70)
+
+#use filter to select GSW players
+filter(dat, team=="GSW")
+
+#use filter to subset rows of GSW centers ('C')
+filter(dat, team=="GSW" & position=="C")
+
+#use filter() and then select(), to subset rows of lakers ('LAL'), and then display their names
+LAL <- filter(dat, team=="LAL")
+select(LAL, player)
+
+#use filter() and then select(), to display the name and salary, of GSW point guards
+GSW_PG <- filter(dat, team=="GSW" & position == "PG")
+select(GSW_PG, player, salary)
+
+#select the name, age, and team, of players with more than 10 years of experience, making 10 million dollars or less
+exp10sal10 <- filter(dat, experience>10 & salary<10000000)
+select(exp10sal10, player, age, team)
+
+#find how to select the name, team, height, and weight, of rookie players, 20 years old, displaying only the first five occurrences (i.e. rows)
+rookie20yo <- filter(dat, experience=="0" & age<20)
+select(rookie20yo, player, team, height, weight)
+```
+
+```{r}
+gsw <- filter(dat, team == 'GSW')
+gsw <- select(gsw, player, height, weight)
+gsw <- slice(gsw, c(4, 8, 10, 14, 15))
+gsw
+
+mutate(gsw, height / weight)
+
+mutate(gsw, ht_wt = height / weight)
+
+gsw2 <- mutate(gsw, ht_m = height * 0.0254, wt_kg = weight * 0.4536)
+gsw2
+
+# order rows by height (increasingly)
+arrange(gsw, height)
+
+# order rows by height (decreasingly)
+arrange(gsw, desc(height))
+
+# order rows by height, and then weight
+arrange(gsw, height, weight)
+```
+
+```{r}
+#use the data frame gsw, add a new variable product with the product of height and weight
+mutate(gsw, height*weight)
+
+#create a new data frame gsw3, by adding columns log_height and log_weight with the log transformations of height and weight
+gsw3 <- mutate (gsw, log_height=log(height), log_weight=log(weight))
+
+#use the original data frame to filter() and arrange() those players with height less than 71 inches tall, in increasing order
+height71 <- filter(dat, height<71)
+arrange(height71, height)
+
+#display the name, team, and salary, of the top-5 highest paid players
+top5sal <- top_n(dat, 5, salary)
+select(top5sal, player, team, salary)
+
+#display the name, team, and points3, of the top 10 three-point players
+top10pts3 <- top_n(dat, 10, points3)
+select(top10pts3, player, team, points3)
+
+#create a data frame gsw_mpg of GSW players, that contains variables for player name, experience, and min_per_game (minutes per game), sorted by min_per_game (in descending order)
+gswteam <- filter(dat, team=="GSW")
+gsw_mpg <- mutate(gswteam, min_per_game=minutes/games)
+gsw_mpg <- select(gsw_mpg, player, experience, min_per_game)
+gsw_mpg <- arrange(gsw_mpg, desc(min_per_game))
+```
+
+```{r}
+#use summarise() to get the largest height value
+summarize(dat, max(height))
+
+#use summarise() to get the standard deviation of points3
+summarize(dat, sd(points3))
+
+#use summarise() and group_by() to display the median of three-points, by team
+summarize(group_by(dat, team), median(points3))
+
+#display the average triple points by team, in ascending order, of the bottom-5 teams (worst 3pointer teams)
+bottom5 <- summarize(group_by(dat,team), avg_pts3 = mean(points3))
+bottom5 <- arrange(bottom5, avg_pts3)
+bottom5 <- slice(bottom5, 1:5)
+
+#obtain the mean and standard deviation of age, for Power Forwards, with 5 and 10 years (including) years of experience
+PF510exp <- filter(dat, position=="PF" & experience>=5 & experience<=10)
+PF510exp <- summarize(PF510exp, mean(age), sd(age))
+```
+
+```{r height vs weight}
+ggplot(data = gsw, aes(x=height, y=weight)) + geom_point()
+```
+
+```{r GSW: height vs weight}
+ggplot(data=gsw, aes(x=height,y=weight))+geom_text(aes(label=player))
+```
+
+```{r GSW: height vs weight for all GSW players}
+gsw <- dat[dat$team=="GSW",]
+ggplot(data=gsw, aes(x=height,y=weight))+geom_label(aes(label=player))
+```
+
+```{r salary density plot}
+ggplot(data=dat, aes(x=salary))+geom_density()
+```
+
+```{r points2 histogram}
+ggplot(data=dat, aes(x=points2))+geom_histogram(binwidth=50)
+```
+
+```{r position frequency barchart}
+ggplot(data=dat, aes(x=position))+geom_bar()
+```
+
+```{r Centers: experience vs salary}
+center <-dat[dat$position=="C", ]
+ggplot(data=center, aes(x=experience, y=salary))+geom_smooth(method=lm)
+```
+
+```{r Centers: experience vs salary, loess}
+center <-dat[dat$position=="C", ]
+ggplot(data=center, aes(x=experience, y=salary))+geom_smooth(method=loess)
+```
+
+```{r experience vs salary by position}
+ggplot(data=dat, aes(x=experience, y=salary)) + geom_point(aes(color=position)) + facet_grid(~ position)
+```
+
+```{r experience vs salary by team}
+ggplot(data=dat, aes(x=experience, y=salary)) + geom_point(aes(color=position)) + facet_grid(~ team)
+```
+
+```{r age density by team}
+ggplot(data=dat, aes(x=age)) + geom_density() +facet_grid(~ team)
+```
+
+```{r height vs weight by position}
+ggplot(data=dat, aes(x=height, y=weight))+geom_point(aes(color=position))+facet_grid(~ position)
+```
+
+```{r height vs weight 2D density by position}
+ggplot(data=dat, aes(x=height, y=weight))+geom_point(aes(color=position))+geom_density2d()+facet_grid(~ position)
+```
+
+```{r GSW: experience vs salary with simple background}
+ggplot(data=gsw, aes(x=experience, y=salary))+geom_point()+theme_bw()
+```
+```{r height vs weight by position with dark theme}
+ggplot(data=dat, aes(x=height, y=weight))+geom_point(aes(color=position))+facet_grid(~ position) +theme_dark()
+```
+
+```{r}
+#change to images folder
+# Nancys-MacBook-Pro-2:~ nancyrose$ cd "Stats 133/lab05/images"
+
+#list contents of images folder
+# Nancys-MacBook-Pro-2:images nancyrose$ ls
+
+#list contents of images folder in long format
+# Nancys-MacBook-Pro-2:images nancyrose$ ls -l
+
+#list contents of images folder in long format by time
+# Nancys-MacBook-Pro-2:images nancyrose$ ls -l -t
+
+#list contents of images folder in reverse alphabetical order
+# Nancys-MacBook-Pro-2:images nancyrose$ ls -s
+
+#make directory copies in lab05 folder
+# Nancys-MacBook-Pro-2:images nancyrose$ mkdir ../copies
+
+#copy a file to copies folder
+# Nancys-MacBook-Pro-2:images nancyrose$ cp "height vs weight-1.png" "../copies"
+
+#copy all .png files to copies folder
+# Nancys-MacBook-Pro-2:images nancyrose$ cp *.png ../copies
+
+#rename a file in copies folder
+# Nancys-MacBook-Pro-2:images nancyrose$ mv "../copies/position frequency barchart-1.png" "../copies/barchart of position frequency.png"
+
+#change directory to report folder
+# Nancys-MacBook-Pro-2:images nancyrose$ cd ../report
+
+#rename copies folder to copy-file
+# Nancys-MacBook-Pro-2:report nancyrose$ mv ../copies ../copy-files
+
+#delete a file from copy-files folder
+# Nancys-MacBook-Pro-2:report nancyrose$ rm -r "../copy-files/barchart of position frequency.png"
+
+#delete copy-files folder
+# Nancys-MacBook-Pro-2:report nancyrose$ rm -r ../copy-files
+```

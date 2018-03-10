@@ -1,0 +1,22 @@
+---
+title: "Homework 2"
+output: github_document
+---
+
+# Data
+
+Download data for
+* andre-iguodala.csv
+* draymond-green.csv
+* kevin-durant.csv
+* klay-thompson.csv
+* stephen-curry.csv
+
+# Data Dictionary
+
+Create Data Dictionary
+
+# Data Preparation
+```{r}
+
+```

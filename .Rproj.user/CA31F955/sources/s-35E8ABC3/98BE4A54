@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1520412008021.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2610118051",
+    "id" : "98BE4A54",
+    "lastKnownWriteTime" : 1520452653,
+    "last_content_update" : 1520452653728,
+    "path" : "~/Stats 133/Homework/hw02/code/make-shot-charts-script.R",
+    "project_path" : "code/make-shot-charts-script.R",
+    "properties" : {
+        "cursorPosition" : "8,4",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

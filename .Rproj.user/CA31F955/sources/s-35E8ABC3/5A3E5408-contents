@@ -1,0 +1,74 @@
+---
+title: "Warmup 1"
+author: "Nancy Rose"
+date: "February 2, 2018"
+output: html_document
+---
+
+# Game of Thrones
+
+### Daenerys Targaryen
+>"I will answer injustice with justice."
+
+![](https://vignette.wikia.nocookie.net/gameofthrones/images/5/5f/Daenerys_Dragonpit.jpg/revision/latest?cb=20171015095128)
+
+ | 
+--- | ---:
+Status | Alive
+Age | 22
+Date of Birth | 282 AC
+Origin | Dragonstone (birthplace)
+\ | Free Cities (raised)
+Allegience | House Targaryen (by birth)
+\ |Drogo's Khalasar (formerly, by marriage)
+
+# Cooking Recipe
+
+### Slow-Roasted Sweet Potatoes
+
+![](https://smittenkitchendotcom.files.wordpress.com/2018/02/slow-roasted-sweet-potatoes.jpg?w=1500)
+
+##### Ingredients
+* 4 medium sweet potatoes (about 3 points), scrubbed clean
+* 4 teaspoons olive oil
+* 2 teaspoons kosher salt
+* 1 teaspoon freshly ground black pepper
+
+##### Necessary Kitchen tools
+* baking sheet
+
+##### Instructions
+1. Heat oven to 275ºF
+2. Arrange sweet potatoes on a large, foil-lined baking sheet
+3. Rub each with 1 teaspoon olive oil, 1/2 teaspoon salt and 1/4 teaspoon pepper until well coated
+4. Bake until very soft inside and caramelized on the bottom, about 2 1/2 hours
+5. Place potatoes under broiler until lightly charred on top, about 1 to 2 minutes
+6. Let potatoes cool 10 minutes, then gently crush potatoes with your hands to expose the flesh
+7. Season with salt and finish with butter, or a topping of your choice
+
+##### Variations
+*Slow-Roasted Sweet Potatoes with Sizzling Spice*: For each potato, heat 2 to 3 teaspoons of a neutral oil or ghee (not vegan, of course) over medium-high heat, add 1/2 teaspoon cumin seeds and 1/2 teaspoon yellow or brown mustard seeds; fry until they crackle and pop, about 20 to 30 seconds. Add 1/2 teaspoon chopped garlic and red pepper flakes to taste; fry another 15 seconds. Pour immediately over exposed potato flesh, and finish with salt. We ate this with some yogurt that had been salted and mixed with lemon juice, and some black lentils on the side.
+
+*Slow-Roasted Sweet Potatoes with Roasted Garlic Yogurt*: Cut a head of garlic in half crosswise; drizzle exposed garlic with a little oil or butter and a pinch of salt. “Close” the garlic again and wrap the head tightly in foil. Place on baking sheet with potatoes. When potatoes are done, use a knife point to remove very soft and lightly browned garlic cloves from their paper shells and mash them with a fork in a small bowl. Stir in 1/2 cup plain yogurt, or more to taste. Season well with salt and pepper. We put pats of salted butter on the exposed potato flesh and dolloped this on top.
+
+# Quadratic Equation
+
+##### General Quadratic Equation
+$$ax^2+bx+c=0$$
+
+##### Roots of the General Quadratic Equation
+$$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
+
+##### Derivation of the Solution
+
+\begin{align*}
+ax^2+bx+c&=0 \\
+4a^2x^2+4abx+4ac&=0 \\
+4a^2x^2+4abx&=-4ac \\
+4a^2x^2+4abx+b^2&=b^2-4ac \\
+(2ax+b)^2&=b^2-4ac \\
+2ax+b&=\pm\sqrt{b^2-4ac} \\
+2ax&=-b\pm\sqrt{b^2-4ac} \\
+x&=\frac{-b\pm\sqrt{b^2-4ac}}{2a} \\
+\end{align*}
+

@@ -1,0 +1,19 @@
+f <- function (x){
+  if(x>=5)
+}
+else if (x>=0){
+  results=sqrt(x)
+}
+else{
+  results=0
+}
+return(results)
+}
+
+f(-1)
+
+  
+  square <- function(x){
+  results=x^2
+  returns(results)
+}

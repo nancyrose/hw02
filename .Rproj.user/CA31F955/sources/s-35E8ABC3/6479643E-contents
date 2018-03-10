@@ -1,0 +1,30 @@
+Lab 6
+
+Lab 6 is an R script file
+Can be found in a folder called "lab06"
+lab06 contains folders called "data" "code" "output" "images" and has a README.md file
+
+In this lab, we
+- Work with a more complex file structure
+- Practice exporting tables
+- Practice exporting R output (as is)
+- Practice exporting plot images
+- Learn about "dplyr" pipelines
+- Get to know the pipe operator %>%
+- Chain dplyr operations with the piper
+
+Input(s)
+- 'nba2017-players.csv'
+
+Output(s)
+- 'warriors.csv'
+- 'lakers.csv'
+- 'data-structure.txt'
+- 'summary-warriors.txt'
+- 'summary-lakers.txt'
+- 'scatterplot-height-weight.png'
+- 'HD-scatterplot-height-weight.png'
+- 'age-histogram.jpeg'
+- 'age-histogram.pdf'
+- 'points_salary.pdf'
+- 'height_weight_by_position.pdf'

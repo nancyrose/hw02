@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1520405101308.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2666402370",
+    "id" : "CB57BBA8",
+    "lastKnownWriteTime" : 1520457939,
+    "last_content_update" : 1520457939307,
+    "path" : "~/Stats 133/Homework/hw02/code/make-shots-data-script.R",
+    "project_path" : "code/make-shots-data-script.R",
+    "properties" : {
+        "cursorPosition" : "23,58",
+        "scrollLine" : "14",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : true,
+    "source_window" : "",
+    "type" : "r_source"
+}
